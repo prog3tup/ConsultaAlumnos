@@ -1,24 +1,24 @@
 ﻿using ConsultaAlumnos.API.Data;
 using ConsultaAlumnos.API.Entities;
-using static ConsultaAlumnos.API.Controllers.AutenticacionController;
+using ConsultaAlumnos.API.Models;
 
 namespace ConsultaAlumnos.API.Services
 {
-    public class AutenticacionService : IAutenticacionService
+    public class AutenticacionService : ICustomAuthenticationService
     {
-        private readonly IUsuarioRepository _profesorRepository;
+        private readonly IUserRepository _profesorRepository;
 
-        public AutenticacionService(IUsuarioRepository profesorRepository)
+        public AutenticacionService(IUserRepository profesorRepository)
         {
             this._profesorRepository = profesorRepository;
         }
 
-        public Usuario? AutenticarUsuario(AuthenticationRequestBody authenticationRequest)
+        public User? ValidateUser(AuthenticationRequestBody authenticationRequest)
         {
             if (String.IsNullOrEmpty(authenticationRequest.UserName) || String.IsNullOrEmpty(authenticationRequest.Password))
                 return null;
 
-            return _profesorRepository.ValidarUsuario(authenticationRequest);
+            return _profesorRepository.ValidateUser(authenticationRequest);
         }
     }
 }

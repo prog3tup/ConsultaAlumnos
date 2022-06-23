@@ -2,6 +2,6 @@
 {
     public interface IRepository
     {
-        bool GuardarCambios();
+        bool SaveChanges();
     }
 }

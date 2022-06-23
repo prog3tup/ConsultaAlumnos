@@ -35,7 +35,7 @@ builder.Services.AddSwaggerGen(setupAction =>
     });
 });
 
-builder.Services.AddDbContext<ConsultaAlumnosContext>(dbContextOptions => dbContextOptions.UseSqlite(
+builder.Services.AddDbContext<StudentsQuestionsContext>(dbContextOptions => dbContextOptions.UseSqlite(
     builder.Configuration["ConnectionStrings:ConsultaAlumnosDBConnectionString"]));
 
 builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntenticación que tenemos que elegir después en PostMan para pasarle el token
@@ -56,14 +56,14 @@ builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntentica
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 #region Repositories
-builder.Services.AddScoped<IConsultaRepository, ConsultaRepository>();
-builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 #endregion
 
 #region Services
-builder.Services.AddScoped<IAutenticacionService, AutenticacionService>();
-builder.Services.AddScoped<IConsultaService, ConsultaService>();
-builder.Services.AddScoped<IAlumnoService, AlumnoService>();
+builder.Services.AddScoped<ICustomAuthenticationService, AutenticacionService>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
 #endregion
 
 

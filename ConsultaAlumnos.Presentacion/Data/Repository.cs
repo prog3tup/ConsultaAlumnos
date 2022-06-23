@@ -4,14 +4,14 @@ namespace ConsultaAlumnos.API.Data
 {
     public class Repository : IRepository
     {
-        internal readonly ConsultaAlumnosContext _context;
+        internal readonly StudentsQuestionsContext _context;
 
-        public Repository(ConsultaAlumnosContext context)
+        public Repository(StudentsQuestionsContext context)
         {
             this._context = context;
         }
 
-        public bool GuardarCambios()
+        public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
         }

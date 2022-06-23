@@ -1,10 +1,11 @@
 ﻿using ConsultaAlumnos.API.Entities;
 using ConsultaAlumnos.API.Models;
 
-namespace ConsultaAlumnos.API.Services
+namespace ConsultaAlumnos.API.Data
 {
-    public interface ICustomAuthenticationService
+    public interface IUserRepository : IRepository
     {
         User? ValidateUser(AuthenticationRequestBody authenticationRequestBody);
+        ICollection<Subject> GetStudentSubjects(int studentId);
     }
 }

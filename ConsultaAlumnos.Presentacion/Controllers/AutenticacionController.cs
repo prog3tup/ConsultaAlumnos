@@ -1,4 +1,5 @@
 ﻿using ConsultaAlumnos.API.Entities;
+using ConsultaAlumnos.API.Models;
 using ConsultaAlumnos.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -8,24 +9,17 @@ using System.Text;
 
 namespace ConsultaAlumnos.API.Controllers
 {
-    [Route("api/autenticacion")]
+    [Route("api/authentication")]
     [ApiController]
-    public class AutenticacionController : ControllerBase
+    public class AuthenticationController : ControllerBase
     {
         private readonly IConfiguration _config;
-        private readonly IAutenticacionService _autenticacionService;
+        private readonly ICustomAuthenticationService _customAuthenticationService;
 
-        public class AuthenticationRequestBody // Esta clase podría estar en un archivo aparte, pero como no es una entidad ni un DTO y solo se usa para el login podemos dejarla acá.
-        {
-            public string? UserName { get; set; }
-            public string? Password { get; set; }
-            public string? TipoUsuario { get; set; }
-        }
-
-        public AutenticacionController(IConfiguration config, IAutenticacionService autenticacionService)
+        public AuthenticationController(IConfiguration config, ICustomAuthenticationService autenticacionService)
         {
             _config = config; //Hacemos la inyección para poder usar el appsettings.json
-            this._autenticacionService = autenticacionService;
+            this._customAuthenticationService = autenticacionService;
         }
 
         [HttpPost("autenticar")] //Vamos a usar un POST ya que debemos enviar los datos para hacer el login
@@ -45,9 +39,9 @@ namespace ConsultaAlumnos.API.Controllers
             //Los claims son datos en clave->valor que nos permite guardar data del usuario.
             var claimsForToken = new List<Claim>();
             claimsForToken.Add(new Claim("sub", usuario.Id.ToString())); //"sub" es una key estándar que significa unique user identifier, es decir, si mandamos el id del usuario por convención lo hacemos con la key "sub".
-            claimsForToken.Add(new Claim("given_name", usuario.Nombre)); //Lo mismo para given_name y family_name, son las convenciones para nombre y apellido. Ustedes pueden usar lo que quieran, pero si alguien que no conoce la app
-            claimsForToken.Add(new Claim("family_name", usuario.Apellido)); //quiere usar la API por lo general lo que espera es que se estén usando estas keys.
-            claimsForToken.Add(new Claim("role", authenticationRequestBody.TipoUsuario ?? "alumno")); //Debería venir del usuario
+            claimsForToken.Add(new Claim("given_name", usuario.Name)); //Lo mismo para given_name y family_name, son las convenciones para nombre y apellido. Ustedes pueden usar lo que quieran, pero si alguien que no conoce la app
+            claimsForToken.Add(new Claim("family_name", usuario.LastName)); //quiere usar la API por lo general lo que espera es que se estén usando estas keys.
+            claimsForToken.Add(new Claim("role", authenticationRequestBody.UserType ?? "alumno")); //Debería venir del usuario
 
             var jwtSecurityToken = new JwtSecurityToken( //agregar using System.IdentityModel.Tokens.Jwt; Acá es donde se crea el token con toda la data que le pasamos antes.
               _config["Authentication:Issuer"],
@@ -63,9 +57,9 @@ namespace ConsultaAlumnos.API.Controllers
             return Ok(tokenToReturn);
         }
 
-        private Usuario? ValidarCredenciales(AuthenticationRequestBody parametrosAutenticacion)
+        private User? ValidarCredenciales(AuthenticationRequestBody parametrosAutenticacion)
         {
-            return _autenticacionService.AutenticarUsuario(parametrosAutenticacion);
+            return _customAuthenticationService.ValidateUser(parametrosAutenticacion);
         }
     }
 }
