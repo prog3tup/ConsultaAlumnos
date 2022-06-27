@@ -58,5 +58,13 @@ namespace ConsultaAlumnos.API.Controllers
                 },
                 createdQuestion);//El tercero es el objeto creado. 
         }
+
+        [HttpPut("{questionId}/changestatus")]
+        public ActionResult<QuestionDto> ChangeQuestionStatus(int questionId, QuestionStatusDto newStatus)
+        {
+            _questionService.ChangeQuestionStatus(questionId, newStatus.Status);
+
+            return NoContent();
+        }
     }
 }

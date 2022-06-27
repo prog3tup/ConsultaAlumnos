@@ -15,9 +15,9 @@ namespace ConsultaAlumnos.API.Services.Implementations
             _mapper = mapper;
             _professorRepository = professorRepository;
         }
-        public ICollection<QuestionDto> GetPendingQuestions(int userId)
+        public ICollection<QuestionDto> GetPendingQuestions(int userId, bool withResponses)
         {
-            var questions = _professorRepository.GetPendingQuestions(userId);
+            var questions = _professorRepository.GetPendingQuestions(userId, withResponses);
             return _mapper.Map<List<QuestionDto>>(questions);
         }
     }

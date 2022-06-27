@@ -5,15 +5,11 @@ namespace ConsultaAlumnos.API.Entities
 {
     public class Response
     {
-        public Response()
-        {
-            CreationDate = DateTime.Now;
-        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Message { get; set; }
-        public DateTime CreationDate { get; }
+        public DateTime CreationDate { get; } = DateTime.Now;
         [ForeignKey("CreatorId")]
         public User Creator { get; set; }
         public int CreatorId { get; set; }

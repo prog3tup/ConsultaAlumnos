@@ -1,5 +1,6 @@
 ﻿using ConsultaAlumnos.API.Entities;
 using InformacionCiudades.API.DBContexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConsultaAlumnos.API.Data
 {
@@ -16,7 +17,15 @@ namespace ConsultaAlumnos.API.Data
 
         public Question? GetQuestion(int questionId)
         {
-            return _context.Questions.FirstOrDefault(c => c.Id == questionId);
+            return _context.Questions
+                .Include(q => q.AssignedProfessor)
+                .Include(q => q.Student)
+                .FirstOrDefault(c => c.Id == questionId);
+        }
+
+        public bool IsQuestionIdValid(int questionId)
+        {
+            return _context.Questions.Any(q => q.Id == questionId);
         }
     }
 }

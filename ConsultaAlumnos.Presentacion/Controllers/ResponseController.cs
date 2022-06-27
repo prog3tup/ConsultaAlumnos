@@ -12,10 +12,12 @@ namespace ConsultaAlumnos.API.Controllers
     public class ResponseController : ControllerBase
     {
         private readonly IResponseService _responseService;
+        private readonly IQuestionService _questionService;
 
-        public ResponseController(IResponseService responseService)
+        public ResponseController(IResponseService responseService, IQuestionService questionService)
         {
             _responseService = responseService;
+            this._questionService = questionService;
         }
 
         [HttpGet("{responseId}", Name = "GetResponse")]
@@ -32,6 +34,8 @@ namespace ConsultaAlumnos.API.Controllers
         [HttpPost]
         public IActionResult CreateResponse(int questionId, ResponseForCreationDto newResponseForCreation)
         {
+            if (!_questionService.IsQuestionIdValid(questionId))
+                return NotFound($"Question Id not found: {questionId.ToString()}");
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             var userId = int.Parse(userIdClaim);
 
@@ -39,7 +43,7 @@ namespace ConsultaAlumnos.API.Controllers
 
             return CreatedAtRoute(
                 "GetResponse",
-                new { questionId, newResponse.Id },
+                new { questionId = questionId, responseId = newResponse.Id },
                 newResponse);
         }
     }

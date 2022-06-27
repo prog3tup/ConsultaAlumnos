@@ -9,5 +9,6 @@ namespace ConsultaAlumnos.API.Data
         ICollection<Subject> GetStudentSubjects(int studentId);
         Student? GetStudentById(int userId);
         Professor? GetProfessorById(int userId);
+        User? GetUserById(int userId);
     }
 }

@@ -10,11 +10,13 @@ namespace ConsultaAlumnos.API.Services.Implementations
     {
         private readonly IMapper _mapper;
         private readonly IResponseRepository _responseRepository;
+        private readonly IQuestionService _questionService;
 
-        public ResponseService(IMapper mapper, IResponseRepository responseRepository)
+        public ResponseService(IMapper mapper, IResponseRepository responseRepository, IQuestionService questionService)
         {
             this._mapper = mapper;
             this._responseRepository = responseRepository;
+            this._questionService = questionService;
         }
         public ResponseDto CreateResponse(ResponseForCreationDto newResponse, int questionId, int userId)
         {
@@ -25,6 +27,8 @@ namespace ConsultaAlumnos.API.Services.Implementations
 
             _responseRepository.AddResponse(response);
             _responseRepository.SaveChanges();
+
+            _questionService.ChangeQuestionStatus(questionId);
 
             return _mapper.Map<ResponseDto>(response);
         }

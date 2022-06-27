@@ -4,6 +4,6 @@ namespace ConsultaAlumnos.API.Services.Interfaces
 {
     public interface IProfessorService
     {
-        ICollection<QuestionDto> GetPendingQuestions(int userId);
+        ICollection<QuestionDto> GetPendingQuestions(int userId, bool withResponses);
     }
 }

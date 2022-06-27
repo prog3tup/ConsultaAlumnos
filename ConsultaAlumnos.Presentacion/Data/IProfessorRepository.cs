@@ -4,6 +4,6 @@ namespace ConsultaAlumnos.API.Data
 {
     public interface IProfessorRepository
     {
-        IOrderedQueryable<Question> GetPendingQuestions(int userId);
+        IOrderedQueryable<Question> GetPendingQuestions(int userId, bool withResponses);
     }
 }

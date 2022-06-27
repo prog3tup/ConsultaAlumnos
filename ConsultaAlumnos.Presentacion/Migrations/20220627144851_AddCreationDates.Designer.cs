@@ -3,6 +3,7 @@ using System;
 using InformacionCiudades.API.DBContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConsultaAlumnos.API.Migrations
 {
     [DbContext(typeof(StudentsQuestionsContext))]
-    partial class StudentsQuestionsContextModelSnapshot : ModelSnapshot
+    [Migration("20220627144851_AddCreationDates")]
+    partial class AddCreationDates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.5");
@@ -60,7 +62,7 @@ namespace ConsultaAlumnos.API.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("Questions", (string)null);
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("ConsultaAlumnos.API.Entities.Response", b =>
@@ -85,7 +87,7 @@ namespace ConsultaAlumnos.API.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Responses", (string)null);
+                    b.ToTable("Responses");
                 });
 
             modelBuilder.Entity("ConsultaAlumnos.API.Entities.Subject", b =>
@@ -104,7 +106,7 @@ namespace ConsultaAlumnos.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subjects", (string)null);
+                    b.ToTable("Subjects");
 
                     b.HasData(
                         new
@@ -153,7 +155,7 @@ namespace ConsultaAlumnos.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("User");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });

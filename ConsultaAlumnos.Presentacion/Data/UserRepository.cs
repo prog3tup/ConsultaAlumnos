@@ -7,7 +7,6 @@ namespace ConsultaAlumnos.API.Data
 {
     public class UserRepository : Repository, IUserRepository
     {
-
         public UserRepository(StudentsQuestionsContext context) : base(context)
         {
         }
@@ -25,5 +24,18 @@ namespace ConsultaAlumnos.API.Data
 
         public Student? GetStudentById(int userId) => _context.Students.Find(userId);
         public Professor? GetProfessorById(int userId) => _context.Professors.Find(userId);
+        public User? GetUserById(int userId)
+        {
+            User? user = GetGenericUser(userId);
+            return user;
+        }
+
+        private User GetGenericUser(int userId)
+        {
+            var user = _context.Professors.Find(userId);
+            if (user is null)
+                return _context.Students.Find(userId);
+            return user;
+        }
     }
 }

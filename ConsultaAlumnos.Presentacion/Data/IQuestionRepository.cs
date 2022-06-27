@@ -6,5 +6,6 @@ namespace ConsultaAlumnos.API.Data
     {
         void AddQuestion(Question newQuestion);
         Question? GetQuestion(int questionId);
+        bool IsQuestionIdValid(int questionId);
     }
 }

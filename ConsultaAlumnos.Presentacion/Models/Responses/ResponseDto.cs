@@ -8,7 +8,5 @@ namespace ConsultaAlumnos.API.Models.Responses
         public string Message { get; set; } = string.Empty;
         public DateTime CreationDate { get; set; }
         public User Creator { get; set; }
-        public Entities.Question Question { get; set; }
-        public int QuestionId { get; set; }
     }
 }
