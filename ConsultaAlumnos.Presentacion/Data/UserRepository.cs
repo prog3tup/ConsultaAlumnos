@@ -22,5 +22,8 @@ namespace ConsultaAlumnos.API.Data
                 return _context.Students.FirstOrDefault(p => p.UserName == authenticationRequestBody.UserName && p.Password == authenticationRequestBody.Password);
             return _context.Professors.FirstOrDefault(p => p.UserName == authenticationRequestBody.UserName && p.Password == authenticationRequestBody.Password);
         }
+
+        public Student? GetStudentById(int userId) => _context.Students.Find(userId);
+        public Professor? GetProfessorById(int userId) => _context.Professors.Find(userId);
     }
 }

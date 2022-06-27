@@ -1,8 +1,9 @@
 ﻿using ConsultaAlumnos.API.Data;
 using ConsultaAlumnos.API.Entities;
 using ConsultaAlumnos.API.Models;
+using ConsultaAlumnos.API.Services.Interfaces;
 
-namespace ConsultaAlumnos.API.Services
+namespace ConsultaAlumnos.API.Services.Implementations
 {
     public class AutenticacionService : ICustomAuthenticationService
     {
@@ -10,12 +11,12 @@ namespace ConsultaAlumnos.API.Services
 
         public AutenticacionService(IUserRepository profesorRepository)
         {
-            this._profesorRepository = profesorRepository;
+            _profesorRepository = profesorRepository;
         }
 
         public User? ValidateUser(AuthenticationRequestBody authenticationRequest)
         {
-            if (String.IsNullOrEmpty(authenticationRequest.UserName) || String.IsNullOrEmpty(authenticationRequest.Password))
+            if (string.IsNullOrEmpty(authenticationRequest.UserName) || string.IsNullOrEmpty(authenticationRequest.Password))
                 return null;
 
             return _profesorRepository.ValidateUser(authenticationRequest);

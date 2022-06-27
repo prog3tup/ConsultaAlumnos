@@ -6,6 +6,12 @@ namespace ConsultaAlumnos.API.Entities
 {
     public class Question
     {
+        public Question()
+        {
+            CreationDate = DateTime.Now;
+            LastModificationDate = DateTime.Now;
+            QuestionState = QuestionState.WaitingProfessorAnwser;
+        }
         [Key]
         public int Id { get; set; }
         public string Title { get; set; }
@@ -22,7 +28,7 @@ namespace ConsultaAlumnos.API.Entities
         //public ICollection<Alumno> Seguidores { get; set; } = new List<Alumno>();
         public ICollection<Response> Responses { get; set; } = new List<Response>();
         public QuestionState QuestionState { get; set; }
-        public DateTime CreationDate { get; set; }
+        public DateTime CreationDate { get; }
         public DateTime? EndDate { get; set; }
         public DateTime? LastModificationDate { get; set; }
     }

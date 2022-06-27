@@ -1,7 +1,7 @@
 ﻿using ConsultaAlumnos.API.Entities;
 using ConsultaAlumnos.Presentacion.Enums;
 
-namespace ConsultaAlumnos.API.Models.Consulta
+namespace ConsultaAlumnos.API.Models.Question
 {
     public class QuestionDto
     {

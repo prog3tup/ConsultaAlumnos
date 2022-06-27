@@ -1,6 +1,6 @@
 ﻿using ConsultaAlumnos.Presentacion.Models;
 
-namespace ConsultaAlumnos.API.Services
+namespace ConsultaAlumnos.API.Services.Interfaces
 {
     public interface IStudentService
     {

@@ -1,6 +1,6 @@
 ﻿using ConsultaAlumnos.API.Entities;
 using ConsultaAlumnos.API.Models;
-using ConsultaAlumnos.API.Services;
+using ConsultaAlumnos.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -22,7 +22,7 @@ namespace ConsultaAlumnos.API.Controllers
             this._customAuthenticationService = autenticacionService;
         }
 
-        [HttpPost("autenticar")] //Vamos a usar un POST ya que debemos enviar los datos para hacer el login
+        [HttpPost("authenticate")] //Vamos a usar un POST ya que debemos enviar los datos para hacer el login
         public ActionResult<string> Autenticar(AuthenticationRequestBody authenticationRequestBody) //Enviamos como parámetro la clase que creamos arriba
         {
             //Paso 1: Validamos las credenciales

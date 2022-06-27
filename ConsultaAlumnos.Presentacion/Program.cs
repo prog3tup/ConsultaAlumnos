@@ -1,5 +1,6 @@
 using ConsultaAlumnos.API.Data;
-using ConsultaAlumnos.API.Services;
+using ConsultaAlumnos.API.Services.Implementations;
+using ConsultaAlumnos.API.Services.Interfaces;
 using InformacionCiudades.API.DBContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -58,14 +59,26 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 #region Repositories
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
+builder.Services.AddScoped<IResponseRepository, ResponseRepository>();
+
 #endregion
 
 #region Services
 builder.Services.AddScoped<ICustomAuthenticationService, AutenticacionService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IProfessorService, ProfessorService>();
+builder.Services.AddScoped<IResponseService, ResponseService>();
+
+
 #endregion
 
+#if DEBUG
+builder.Services.AddTransient<IMailService, LocalMailService>();
+#else 
+builder.Services.AddTransient<IMailService, CloudMailService>();
+#endif
 
 var app = builder.Build();
 

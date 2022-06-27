@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using ConsultaAlumnos.API.Data;
+using ConsultaAlumnos.API.Services.Interfaces;
 using ConsultaAlumnos.Presentacion.Models;
 
-namespace ConsultaAlumnos.API.Services
+namespace ConsultaAlumnos.API.Services.Implementations
 {
     public class StudentService : IStudentService
     {

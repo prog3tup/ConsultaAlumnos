@@ -1,6 +1,6 @@
 ﻿// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-using ConsultaAlumnos.API.Services;
+using ConsultaAlumnos.API.Services.Interfaces;
 using ConsultaAlumnos.Presentacion.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +23,10 @@ namespace ConsultaAlumnos.API.Controllers
         public ActionResult<ICollection<SubjectDto>> GetMaterias()
         {
             var user = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            if (userRole != "alumno")
+                return Forbid();
+
             return _studentService.GetSubjectsByStudent(int.Parse(user)).ToList();
         }
 

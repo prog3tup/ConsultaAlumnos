@@ -1,5 +1,6 @@
 ﻿using ConsultaAlumnos.API.Models.Consulta;
-using ConsultaAlumnos.API.Services;
+using ConsultaAlumnos.API.Models.Question;
+using ConsultaAlumnos.API.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;

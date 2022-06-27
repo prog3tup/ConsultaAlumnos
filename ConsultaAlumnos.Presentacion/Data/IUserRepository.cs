@@ -7,5 +7,7 @@ namespace ConsultaAlumnos.API.Data
     {
         User? ValidateUser(AuthenticationRequestBody authenticationRequestBody);
         ICollection<Subject> GetStudentSubjects(int studentId);
+        Student? GetStudentById(int userId);
+        Professor? GetProfessorById(int userId);
     }
 }

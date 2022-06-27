@@ -1,6 +1,7 @@
 ﻿using ConsultaAlumnos.API.Models.Consulta;
+using ConsultaAlumnos.API.Models.Question;
 
-namespace ConsultaAlumnos.API.Services
+namespace ConsultaAlumnos.API.Services.Interfaces
 {
     public interface IQuestionService
     {
