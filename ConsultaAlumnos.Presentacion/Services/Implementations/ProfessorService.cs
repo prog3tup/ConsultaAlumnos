@@ -8,16 +8,16 @@ namespace ConsultaAlumnos.API.Services.Implementations
     public class ProfessorService : IProfessorService
     {
         private readonly IMapper _mapper;
-        private readonly IProfessorRepository _professorRepository;
+        private readonly IQuestionRepository _questionRepository;
 
-        public ProfessorService(IMapper mapper, IProfessorRepository professorRepository)
+        public ProfessorService(IMapper mapper, IQuestionRepository questionRepository)
         {
             _mapper = mapper;
-            _professorRepository = professorRepository;
+            _questionRepository = questionRepository;
         }
         public ICollection<QuestionDto> GetPendingQuestions(int userId, bool withResponses)
         {
-            var questions = _professorRepository.GetPendingQuestions(userId, withResponses);
+            var questions = _questionRepository.GetPendingQuestions(userId, withResponses);
             return _mapper.Map<List<QuestionDto>>(questions);
         }
     }

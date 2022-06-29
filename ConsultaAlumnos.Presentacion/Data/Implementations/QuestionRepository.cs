@@ -5,11 +5,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ConsultaAlumnos.API.Data
 {
-    public class ProfessorRepository : Repository, IProfessorRepository
+    public class QuestionRepository : Repository, IQuestionRepository
     {
-        public ProfessorRepository(StudentsQuestionsContext context) : base(context)
+        public QuestionRepository(StudentsQuestionsContext context) : base(context)
         {
+        }
 
+        public void AddQuestion(Question newQuestion)
+        {
+            _context.Questions.Add(newQuestion);
+        }
+
+        public Question? GetQuestion(int questionId)
+        {
+            return _context.Questions
+                .Include(q => q.AssignedProfessor)
+                .Include(q => q.Student)
+                .FirstOrDefault(c => c.Id == questionId);
+        }
+
+        public bool IsQuestionIdValid(int questionId)
+        {
+            return _context.Questions.Any(q => q.Id == questionId);
         }
 
         public IOrderedQueryable<Question> GetPendingQuestions(int userId, bool withResponses)
@@ -23,7 +40,5 @@ namespace ConsultaAlumnos.API.Data
                 .Where(q => q.ProfessorId == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser)
                 .OrderBy(q => q.LastModificationDate);
         }
-
-        public Professor? GetProfessorById(int userId) => _context.Professors.Find(userId);
     }
 }
