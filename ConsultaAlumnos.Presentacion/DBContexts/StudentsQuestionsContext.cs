@@ -10,6 +10,7 @@ namespace InformacionCiudades.API.DBContexts
         public DbSet<Question> Questions { get; set; }
         public DbSet<Response> Responses { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<User> Users { get; set; }
 
 
         public StudentsQuestionsContext(DbContextOptions<StudentsQuestionsContext> options) : base(options) //Acá estamos llamando al constructor de DbContext que es el que acepta las opciones
@@ -19,6 +20,8 @@ namespace InformacionCiudades.API.DBContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().HasDiscriminator(u => u.UserType);
+
             modelBuilder.Entity<Student>().HasData(
                 new Student
                 {

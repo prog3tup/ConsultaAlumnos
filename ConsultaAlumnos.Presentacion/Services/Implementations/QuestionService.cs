@@ -36,8 +36,8 @@ namespace ConsultaAlumnos.API.Services.Implementations
 
             newQuestion.CreatorStudentId = userId;
 
-            var student = _userRepository.GetStudentById(userId);
-            var professor = _userRepository.GetProfessorById(newQuestionDto.ProfessorId);
+            var student = _userRepository.GetUserById(userId);
+            var professor = _userRepository.GetUserById(newQuestionDto.ProfessorId);
 
             _questionRepository.AddQuestion(newQuestion);
             if (_questionRepository.SaveChanges())
@@ -73,7 +73,7 @@ namespace ConsultaAlumnos.API.Services.Implementations
             var userId = _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var question = _questionRepository.GetQuestion(questionId);
             var user = _userRepository.GetUserById(int.Parse(userId));
-            question.QuestionState = user.Discriminator == "Alumno" ? QuestionState.WaitingProfessorAnwser : QuestionState.WaitingStudentAnwser;
+            question.QuestionState = user.UserType == "Alumno" ? QuestionState.WaitingProfessorAnwser : QuestionState.WaitingStudentAnwser;
             question.LastModificationDate = DateTime.Now;
             if (_questionRepository.SaveChanges())
                 NotifyStatusChange(question);

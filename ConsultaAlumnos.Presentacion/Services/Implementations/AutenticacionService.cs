@@ -7,11 +7,11 @@ namespace ConsultaAlumnos.API.Services.Implementations
 {
     public class AutenticacionService : ICustomAuthenticationService
     {
-        private readonly IUserRepository _profesorRepository;
+        private readonly IUserRepository _userRepository;
 
-        public AutenticacionService(IUserRepository profesorRepository)
+        public AutenticacionService(IUserRepository userRepository)
         {
-            _profesorRepository = profesorRepository;
+            _userRepository = userRepository;
         }
 
         public User? ValidateUser(AuthenticationRequestBody authenticationRequest)
@@ -19,7 +19,7 @@ namespace ConsultaAlumnos.API.Services.Implementations
             if (string.IsNullOrEmpty(authenticationRequest.UserName) || string.IsNullOrEmpty(authenticationRequest.Password))
                 return null;
 
-            return _profesorRepository.ValidateUser(authenticationRequest);
+            return _userRepository.ValidateUser(authenticationRequest);
         }
     }
 }

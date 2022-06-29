@@ -7,12 +7,12 @@ namespace ConsultaAlumnos.API.Services.Implementations
 {
     public class StudentService : IStudentService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IStudentRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public StudentService(IUserRepository userRepository, IMapper mapper)
+        public StudentService(IStudentRepository studentRepository, IMapper mapper)
         {
-            _userRepository = userRepository;
+            _userRepository = studentRepository;
             _mapper = mapper;
         }
         public ICollection<SubjectDto> GetSubjectsByStudent(int studentId)

@@ -23,5 +23,7 @@ namespace ConsultaAlumnos.API.Data
                 .Where(q => q.ProfessorId == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser)
                 .OrderBy(q => q.LastModificationDate);
         }
+
+        public Professor? GetProfessorById(int userId) => _context.Professors.Find(userId);
     }
 }
