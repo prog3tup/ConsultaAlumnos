@@ -33,7 +33,7 @@ namespace ConsultaAlumnos.API.Data
         {
             if (withResponses)
                 return _context.Questions
-                    .Include(q => q.Responses)
+                    .Include(q => q.Responses).ThenInclude(r => r.Creator)
                     .Where(q => q.ProfessorId == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser)
                     .OrderBy(q => q.LastModificationDate);
             return _context.Questions
